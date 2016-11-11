@@ -1,0 +1,10 @@
+Sepehr Raissian
+sraissian@ucsc.edu
+12B pa1
+10/7/16
+Files:
+
+README           Table of contents for submitted files
+Makefile         Compiles Recursion and Run class
+Recursion.java   Reverses the array 3 different ways and finds the max and min index of the array. prints the given array.
+Run.java         Runs the main program
