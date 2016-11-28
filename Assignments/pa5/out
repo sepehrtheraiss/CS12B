@@ -1,0 +1,28 @@
+key 26 five happy
+key 28 one foo
+key 40 six sad
+key 74 four galumph
+key 108 two bar
+key 142 seven blue
+key 154 three blah
+key="one" value="foo"
+key="two" value="bar"
+key="three" value="blah"
+key="four" value="galumph"
+key="five" value="happy"
+key="six" value="sad"
+key="seven" value="blue"
+key 26 five happy
+key 40 six sad
+key 74 four galumph
+key 108 two bar
+key="one" not found "(null)"
+key="two" value="bar"
+key="three" not found "(null)"
+key="four" value="galumph"
+key="five" value="happy"
+key="six" value="sad"
+key="seven" not found "(null)"
+false
+4
+false
