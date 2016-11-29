@@ -10,7 +10,8 @@
 #include<stdlib.h>
 #include<assert.h>
 #include"Dictionary.h"
-const int tableSize=101; 
+#define tableSize 107
+//const int tableSize=180; // gives compile error
 // NodeObj
 typedef struct NodeObj{
     char* key;
@@ -43,7 +44,7 @@ void freeNode(Node* pN){
 }
 // DictionaryObj
 typedef struct DictionaryObj{
-   Node* hashTable;
+   Node hashTable[tableSize];
    int numItems;
 }DictionaryObj;
 void freeRecursively(Node n)
@@ -95,9 +96,7 @@ Dictionary newDictionary(void)
 {
     Dictionary D = malloc(sizeof(DictionaryObj));
     assert(D != NULL);
-    D->hashTable=malloc(tableSize*sizeof(Node));
     D->numItems=0;
-    //D->hashTable = malloc(tableSize*sizeof(Node));
     for(int i=0;i<tableSize;i++)
     {
         D->hashTable[i] = NULL;
@@ -187,14 +186,7 @@ void insert(Dictionary D, char* k, char* v)
 
     }
 }
-void postOrder(FILE* out,Node ptr)
-{
-    if(ptr!=NULL)
-    {
-        postOrder(out,ptr->next);
-        fprintf(out,"%s %s\n",ptr->key,ptr->value);
-    }
-}
+
 // printDictionary()
 // pre: none
 // prints a text representation of D to the file pointed to by out
@@ -204,11 +196,10 @@ void printDictionary(FILE* out, Dictionary D)
         for (int i = 0; i < tableSize; i++) {
             if (D->hashTable[i] != NULL) {
                 Node ptr = D->hashTable[i];
-                postOrder(out,ptr);//it will print if there is a list
-             /*   while (ptr != NULL) {
+                while (ptr != NULL) {
                     fprintf(out, "%s %s\n", ptr->key, ptr->value);
                     ptr = ptr->next;
-                }*/
+                }
             }
         }
     }
@@ -276,6 +267,4 @@ void makeEmpty(Dictionary D)
         }
     }
     D->numItems=0;
-    free(D->hashTable);
-    D->hashTable = NULL;
 }
