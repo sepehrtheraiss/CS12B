@@ -12,7 +12,7 @@ int main()
     }
 
     printDictionary(stdout, A);
-    //freeDictionary(&A);
-    //printDictionary(stdout, A);
+    freeDictionary(&A);
+    printDictionary(stdout, A);
     return 0;
 }

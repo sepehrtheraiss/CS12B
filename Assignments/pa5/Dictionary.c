@@ -8,6 +8,7 @@
 // ----------------------------------------------------------------
 #include<stdio.h>
 #include<stdlib.h>
+#include <string.h>
 #include<assert.h>
 #include"Dictionary.h"
 const int tableSize=180;
@@ -98,12 +99,13 @@ Dictionary newDictionary(void)
     Dictionary D = malloc(sizeof(DictionaryObj));
     assert(D != NULL);
     D->hashTable = malloc(tableSize* sizeof(Node));
-    D->order = malloc(tableSize);
+    D->order = malloc(tableSize* sizeof(char*));
     D->index=0;
     D->numItems=0;
     for(int i=0;i<tableSize;i++)
     {
         D->hashTable[i] = NULL;
+        D->order[i] = NULL;
     }
     return D;
 }
@@ -214,8 +216,9 @@ void printDictionary(FILE* out, Dictionary D)
 {
     if(D!=NULL) {
         for (int i = 0; i < tableSize; i++) {
-            if(lookup(D,D->order[i])!=NULL)
-            printf("%s %s\n",D->order[i],lookup(D,D->order[i]));
+            if(D->order[i]!=NULL) {
+                printf("%s %s\n", D->order[i], lookup(D, D->order[i]));
+            }
         }
     }
 }
@@ -267,6 +270,7 @@ void remove_recursively(Node n)
         freeNode(&n);
     }
 }
+
 // makeEmpty()
 // re-sets D to the empty state.
 // pre: none
@@ -277,8 +281,12 @@ void makeEmpty(Dictionary D)
         {
             remove_recursively(D->hashTable[i]);
             D->hashTable[i] = NULL;
+            free(D->order[i]);
+            D->order[i]=NULL;
         } else{
             freeNode(&D->hashTable[i]);
+            free(D->order[i]);
+            D->order[i]=NULL;
         }
     }
     D->numItems=0;
