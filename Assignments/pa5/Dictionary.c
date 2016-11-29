@@ -10,8 +10,7 @@
 #include<stdlib.h>
 #include<assert.h>
 #include"Dictionary.h"
-#define tableSize 107
-//const int tableSize=180; // gives compile error
+const int tableSize=180;
 // NodeObj
 typedef struct NodeObj{
     char* key;
@@ -36,16 +35,18 @@ Node newNode(char* K,char* V){
 // freeNode()
 // destructor for the Node type
 void freeNode(Node* pN){
-        if(pN != NULL && *pN != NULL)
-        {
+    if(pN != NULL && *pN != NULL)
+    {
         free(*pN);
         *pN = NULL;
-        }
+    }
 }
 // DictionaryObj
 typedef struct DictionaryObj{
-   Node hashTable[tableSize];
-   int numItems;
+    Node* hashTable;
+    char** order;
+    int index;
+    int numItems;
 }DictionaryObj;
 void freeRecursively(Node n)
 {
@@ -96,6 +97,9 @@ Dictionary newDictionary(void)
 {
     Dictionary D = malloc(sizeof(DictionaryObj));
     assert(D != NULL);
+    D->hashTable = malloc(tableSize* sizeof(Node));
+    D->order = malloc(tableSize);
+    D->index=0;
     D->numItems=0;
     for(int i=0;i<tableSize;i++)
     {
@@ -119,7 +123,7 @@ void freeDictionary(Dictionary *pD)
 // returns 1 if D is empty, otherwise 0
 int isEmpty(Dictionary D)
 {
- return (D->numItems==0);   
+    return (D->numItems==0);
 }
 // size()
 // pre: none
@@ -166,6 +170,8 @@ void insert(Dictionary D, char* k, char* v)
     {
         int key = hash(k);
         if(lookup(D,k) == NULL) {
+            D->order[D->index]=k;
+            D->index++;
             if(D->hashTable[key] == NULL) { //D->hashTable[key] is empty needs a node to point to
                 D->hashTable[key] = newNode(k, v);
             }
@@ -190,17 +196,26 @@ void insert(Dictionary D, char* k, char* v)
 // printDictionary()
 // pre: none
 // prints a text representation of D to the file pointed to by out
+//void printDictionary(FILE* out, Dictionary D)
+//{
+//    if(D!=NULL) {
+//        for (int i = 0; i < tableSize; i++) {
+//            if (D->hashTable[i] != NULL) {
+//                Node ptr = D->hashTable[i];
+//                while (ptr != NULL) {
+//                    fprintf(out, "%s %s\n", ptr->key, ptr->value);
+//                    ptr = ptr->next;
+//                }
+//            }
+//        }
+//    }
+//}
 void printDictionary(FILE* out, Dictionary D)
 {
     if(D!=NULL) {
         for (int i = 0; i < tableSize; i++) {
-            if (D->hashTable[i] != NULL) {
-                Node ptr = D->hashTable[i];
-                while (ptr != NULL) {
-                    fprintf(out, "%s %s\n", ptr->key, ptr->value);
-                    ptr = ptr->next;
-                }
-            }
+            if(lookup(D,D->order[i])!=NULL)
+            printf("%s %s\n",D->order[i],lookup(D,D->order[i]));
         }
     }
 }
@@ -222,7 +237,7 @@ void delete(Dictionary D, char* k)
                 D->hashTable[key] = D->hashTable[key]->next;
                 freeNode(&ptr);
             }
-            //freeNode(&ptr); why does D->hashTable[key] still point the same node?
+                //freeNode(&ptr); why does D->hashTable[key] still point the same node?
             else
             {
                 freeNode(&D->hashTable[key]);

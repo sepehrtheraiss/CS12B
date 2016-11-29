@@ -30,7 +30,7 @@ int isEmpty(Dictionary D);
 int size(Dictionary D);
 
 // lookup()
-// returns the value v such that (k, v) is in D, or returns NULL if no 
+// returns the value v such that (k, v) is in D, or returns NULL if no
 // such value v exists.
 // pre: none
 char* lookup(Dictionary D, char* k);
