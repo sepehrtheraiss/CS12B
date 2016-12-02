@@ -1,1 +1,13 @@
-Edit before submitting
+Sepehr Raissian
+sraissian@ucsc.edu
+12B lab7
+Due date: 12/2/16
+
+Table of Contents:
+-README
+-Makefile
+-DictionaryInterface.java
+-Dictionary.java
+-DuplicateKeyException.java
+-KeyNotFoundException.java
+-DictionaryClient.java
