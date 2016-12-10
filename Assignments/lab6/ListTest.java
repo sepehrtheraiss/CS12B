@@ -1,0 +1,35 @@
+// ---------------------------------------------------------------
+// Sepehr Raissian
+// Sraissia@ucsc.edu
+// 12B lab6
+// 11/18/16
+// ListTest.java
+// Testing file for ADT List to see if every method works
+// ----------------------------------------------------------------
+public class ListTest {
+        public static void main(String[] args)
+        {
+                List<Integer> l = new List<Integer>();
+                for(int i =1;i<=5;i++)
+                l.add(i, (i*2)+1);
+                System.out.println(l.toString());
+                System.out.println(l.get(2));
+                System.out.println(l.size());
+                l.remove(2);
+                System.out.println(l.toString());
+                l.removeAll();
+                System.out.println(l.size());
+                System.out.println(l.toString());
+                for(int i =1;i<=5;i++)
+                l.add(i, (i*2)+1);
+                List<String> ls = new List<String>();
+                for(int i =1;i<=5;i++)
+                ls.add(i, "a"+i);
+                System.out.println(ls.toString());
+                System.out.println(l.equals(ls));
+                System.out.println(l.equals(l));
+                
+                
+        }
+}
+

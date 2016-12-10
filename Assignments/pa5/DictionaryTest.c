@@ -1,3 +1,11 @@
+// ---------------------------------------------------------------
+// Sepehr Raissian
+// Sraissia@ucsc.edu
+// 12B pa5
+// 12/2/16
+// DictionaryTest.c
+// adds pair of key and value to the hashtable with chaining
+// ----------------------------------------------------------------
 #include<stdio.h>
 #include"Dictionary.h"
 int main()
@@ -23,3 +31,4 @@ int main()
     printDictionary(stdout, D);
     return 0;
 }
+

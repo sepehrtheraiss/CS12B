@@ -239,12 +239,12 @@ void delete(Dictionary D, char* k)
         }
         else// other list contains the key
         {
-            while(ptr->next->key != k) // go on until the next node is the key
+            while(ptr->next->key != k)
             {
                 ptr = ptr->next;
             }
             Node dPtr = ptr->next;
-            ptr->next = ptr->next->next; // skip the node to the be deleted and link them
+            ptr->next = ptr->next->next;
             freeNode(&dPtr);
         }
         D->numItems--;
